@@ -36,11 +36,11 @@ struct State
 typedef const struct State SType;
 
 Stype FSM[7] = {
-	{B00110001, 2000, {goS, waitS, waitS, waitS, goS, waitS, waitS, waitS}},
-	{B01010001, 300, {goWt, goWt, goWt, goWt, goWt, goWt, goWt, goWt}},
-	{B10000101, 2000, {goWt, waitWt, goWt, waitWt, waitWt, waitWt, waitWt, waitWt}},
+	{B00110001, 3000, {goS, waitS, waitS, waitS, goS, waitS, waitS, waitS}},
+	{B01010001, 500, {goWt, goWt, goWt, goWt, goWt, goWt, goWt, goWt}},
+	{B10000101, 3000, {goWt, waitWt, goWt, waitWt, waitWt, waitWt, waitWt, waitWt}},
 	{B10001001, 300, {goWk, goWk, goWk, goWk, goWk, goWk, goWk, goWk}},
-	{B10010010, 1500, {goWk, goWk, lightOff, lightOff, lightOff, lightOff, lightOff, lightOff}},
+	{B10010010, 200, {goWk, goWk, lightOff, lightOff, lightOff, lightOff, lightOff, lightOff}},
 	{B10010010, 100, {lightOff2, lightOff2, lightOff2, lightOff2, lightOff2, lightOff2, lightOff2, lightOff2}},
 	{B10010000, 100, {lightOn, lightOn, lightOn, lightOn, lightOn, lightOn, lightOn, lightOn}},
 	{B10010000, 100, {goS, goS, lightOn, goS, goS, goS, goS, goS}},
@@ -81,9 +81,9 @@ void loop()
 
 	delay(FSM[S].Time);
 
-	inputS = digitalRead(BUTTON_S);
-	inputWt = digitalRead(BUTTON_WT);
-	inputWk = digitalRead(BUTTON_WK);
+	inputS = !digitalRead(BUTTON_S);
+	inputWt = !digitalRead(BUTTON_WT);
+	inputWk = !digitalRead(BUTTON_WK);
 
 	input = 4*inputS + 2*inputWt + inputWk;
 	S = FSM[S].Next[input];
